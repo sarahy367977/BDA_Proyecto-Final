@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Tags y Categorías</h2>
+
+    <div class="crud-form">
+        <h3>Crear Tag</h3>
+        <form action="{{ url_for('crear_tag') }}" method="POST">
+            <label for="tagName">Nombre del Tag:</label>
+            <input type="text" id="tagName" name="nombre_tag" required>
+            <label for="tagUrl">URL del Tag:</label>
+            <input type="text" id="tagUrl" name="url_tag" required>
+            <button type="submit">Crear Tag</button>
+        </form>
+    </div>
+
+    <div class="crud-form" style="margin-top: 30px;">
+        <h3>Crear Categoría</h3>
+        <form action="{{ url_for('crear_categoria') }}" method="POST">
+            <label for="catName">Nombre Categoría:</label>
+            <input type="text" id="catName" name="nombre_cat" required>
+            <label for="catUrl">URL Categoría:</label>
+            <input type="text" id="catUrl" name="url_cat" required>
+            <button type="submit">Crear Categoría</button>
+        </form>
+    </div>
+
+    <h3>Lista de Tags</h3>
+    <table class="crud-table">
+        <tr><th>ID</th><th>Nombre</th><th>URL</th><th>Editar/Eliminar</th></tr>
+        {% for tag in tags %}
+        <tr>
+            <td>{{ tag._id }}</td>
+            <td>{{ tag.name }}</td>
+            <td>{{ tag.url }}</td>
+            <td>
+                <a href="{{ url_for('pagina_editar_tag', tag_id=tag._id) }}">Editar</a> |
+                <a href="{{ url_for('eliminar_tag', tag_id=tag._id) }}" onclick="return confirm('¿Seguro?')">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Lista de Categorías</h3>
+    <table class="crud-table">
+        <tr><th>ID</th><th>Nombre</th><th>URL</th><th>Editar/Eliminar</th></tr>
+        {% for cat in categorias %}
+        <tr>
+            <td>{{ cat._id }}</td>
+            <td>{{ cat.name }}</td>
+            <td>{{ cat.url }}</td>
+            <td>
+                <a href="{{ url_for('pagina_editar_categoria', categoria_id=cat._id) }}">Editar</a> |
+                <a href="{{ url_for('eliminar_categoria', categoria_id=cat._id) }}" onclick="return confirm('¿Seguro?')">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

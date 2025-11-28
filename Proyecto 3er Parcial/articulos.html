@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Artículos</h2>
+
+    <div class="crud-form">
+        <h3>Crear Artículo</h3>
+        <form action="{{ url_for('crear_articulo') }}" method="POST">
+            
+            <label for="articleTitle">Título:</label>
+            <input type="text" id="articleTitle" name="titulo" required>
+            
+            <label for="articleText">Contenido:</label>
+            <textarea id="articleText" name="texto" rows="5"></textarea>
+            
+            <label for="articleAuthor">Autor:</label>
+            <select id="articleAuthor" name="autor_id" required>
+                <option value="">-- Selecciona un autor --</option>
+                {% for autor in autores %}
+                    <option value="{{ autor._id }}">{{ autor.name }}</option>
+                {% endfor %}
+            </select>
+            
+            <label>Tags:</label>
+            <div class="checkbox-group" id="articleTags">
+                {% for tag in tags %}
+                    <input type="checkbox" id="tag_{{ tag._id }}" name="tags" value="{{ tag._id }}">
+                    <label for="tag_{{ tag._id }}">{{ tag.name }}</label><br>
+                {% endfor %}
+            </div>
+            
+            <label>Categorías:</label>
+            <div class="checkbox-group" id="articleCategories">
+                {% for cat in categorias %}
+                    <input type="checkbox" id="cat_{{ cat._id }}" name="categorias" value="{{ cat._id }}">
+                    <label for="cat_{{ cat._id }}">{{ cat.name }}</label><br>
+                {% endfor %}
+            </div>
+            
+            <button type="submit">Crear Artículo</button>
+        </form>
+    </div>
+
+    <h3>Lista de Artículos</h3>
+    <table class="crud-table">
+        <tr><th>ID</th><th>Título</th><th>Autor</th><th>Editar/Eliminar</th></tr>
+        
+        {% for articulo in articulos %}
+        <tr>
+            <td>{{ articulo._id }}</td>
+            <td>{{ articulo.title }}</td>
+            <td>{{ articulo.author_name }}</td>
+            <td>
+                <a href="{{ url_for('pagina_editar_articulo', articulo_id=articulo._id) }}">Editar</a> |
+                <a href="{{ url_for('eliminar_articulo', articulo_id=articulo._id) }}" onclick="return confirm('¿Seguro?')">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

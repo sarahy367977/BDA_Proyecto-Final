@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>Editar Categoría</h2>
+    <div class="crud-form">
+        <form action="{{ url_for('actualizar_categoria_accion', categoria_id=categoria._id) }}" method="POST">
+            <label for="catName">Nombre Categoría:</label>
+            <input type="text" id="catName" name="nombre_cat" value="{{ categoria.name }}" required>
+            <label for="catUrl">URL Categoría:</label>
+            <input type="text" id="catUrl" name="url_cat" value="{{ categoria.url }}" required>
+            <button type="submit">Actualizar Categoría</button>
+        </form>
+    </div>
+{% endblock %}

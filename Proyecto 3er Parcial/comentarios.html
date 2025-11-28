@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Comentarios</h2>
+
+    <div class="crud-form">
+        <h3>Añadir Comentario</h3>
+        <form action="{{ url_for('crear_comentario') }}" method="POST">
+            
+            <label for="commentArticle">Artículo:</label>
+            <select id="commentArticle" name="articulo_id" required>
+                <option value="">-- Selecciona un artículo --</option>
+                {% for articulo in articulos %}
+                    <option value="{{ articulo._id }}">{{ articulo.title }}</option>
+                {% endfor %}
+            </select>
+            
+            <label for="commentAuthor">Autor:</label>
+            <select id="commentAuthor" name="autor_id" required>
+                <option value="">-- Selecciona un autor --</option>
+                {% for autor in autores %}
+                    <option value="{{ autor._id }}">{{ autor.name }}</option>
+                {% endfor %}
+            </select>
+            
+            <label for="commentText">Comentario:</label>
+            <textarea id="commentText" name="texto" rows="4" required></textarea>
+            
+            <button type="submit">Añadir Comentario</button>
+        </form>
+    </div>
+
+    <h3>Lista de Comentarios</h3>
+    <table class="crud-table">
+        <tr><th>ID</th><th>Comentario</th><th>Autor</th><th>Artículo</th><th>Editar/Eliminar</th></tr>
+        {% for comentario in comentarios %}
+        <tr>
+            <td>{{ comentario._id }}</td>
+            <td>{{ comentario.text }}</td>
+            <td>{{ comentario.author_name }}</td>
+            <td>{{ comentario.article_title }}</td>
+            <td>
+                <a href="{{ url_for('pagina_editar_comentario', comentario_id=comentario._id) }}">Editar</a> |
+                <a href="{{ url_for('eliminar_comentario', comentario_id=comentario._id) }}" onclick="return confirm('¿Seguro?')">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

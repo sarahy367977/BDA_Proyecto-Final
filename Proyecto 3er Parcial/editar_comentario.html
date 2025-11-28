@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>Editar Comentario</h2>
+    <div class="crud-form">
+        <form action="{{ url_for('actualizar_comentario_accion', comentario_id=comentario._id) }}" method="POST">
+            
+            <label for="commentArticle">Artículo:</label>
+            <select id="commentArticle" name="articulo_id" required>
+                <option value="">-- Selecciona un artículo --</option>
+                {% for articulo in articulos %}
+                    <option value="{{ articulo._id }}" {% if articulo._id == comentario.article_id %}selected{% endif %}>
+                        {{ articulo.title }}
+                    </option>
+                {% endfor %}
+            </select>
+            
+            <label for="commentAuthor">Autor:</label>
+            <select id="commentAuthor" name="autor_id" required>
+                <option value="">-- Selecciona un autor --</option>
+                {% for autor in autores %}
+                    <option value="{{ autor._id }}" {% if autor._id == comentario.author_id %}selected{% endif %}>
+                        {{ autor.name }}
+                    </option>
+                {% endfor %}
+            </select>
+            
+            <label for="commentText">Comentario:</label>
+            <textarea id="commentText" name="texto" rows="4" required>{{ comentario.text }}</textarea>
+            
+            <button type="submit">Actualizar Comentario</button>
+        </form>
+    </div>
+{% endblock %}

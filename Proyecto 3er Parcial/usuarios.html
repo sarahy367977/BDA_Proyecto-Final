@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Usuarios</h2>
+
+    <div class="crud-form">
+        <h3>Crear Usuario</h3>
+        <form action="{{ url_for('crear_usuario') }}" method="POST">
+            <label for="userName">Nombre de Usuario:</label>
+            <input type="text" id="userName" name="nombre" required>
+            
+            <label for="userEmail">Email:</label>
+            <input type="text" id="userEmail" name="email" required>
+            
+            <button type="submit">Crear Usuario</button>
+        </form>
+    </div>
+
+    <h3>Lista de Usuarios</h3>
+    <table class="crud-table">
+        <tr><th>ID</th><th>Nombre</th><th>Email</th><th>Editar/Eliminar</th></tr>
+        
+        {% for user in usuarios %}
+        <tr>
+            <td>{{ user._id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+                <a href="{{ url_for('pagina_editar_usuario', user_id=user._id) }}">Editar</a> |
+                <a href="{{ url_for('eliminar_usuario', user_id=user._id) }}" onclick="return confirm('¿Seguro?')">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Editar Usuario</h2>
+
+    <div class="crud-form">
+        <form action="{{ url_for('actualizar_usuario_accion', user_id=usuario._id) }}" method="POST">
+            
+            <label for="userName">Nombre de Usuario:</label>
+            <input type="text" id="userName" name="nombre" value="{{ usuario.name }}" required>
+            
+            <label for="userEmail">Email:</label>
+            <input type="text" id="userEmail" name="email" value="{{ usuario.email }}" required>
+            
+            <button type="submit">Actualizar Usuario</button>
+        </form>
+    </div>
+{% endblock %}

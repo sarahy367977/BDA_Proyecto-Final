@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Editar Artículo</h2>
+
+    <div class="crud-form">
+        <form action="{{ url_for('actualizar_articulo_accion', articulo_id=articulo._id) }}" method="POST">
+            
+            <label for="articleTitle">Título:</label>
+            <input type="text" id="articleTitle" name="titulo" value="{{ articulo.title }}" required>
+            
+            <label for="articleText">Contenido:</label>
+            <textarea id="articleText" name="texto" rows="5">{{ articulo.text }}</textarea>
+            
+            <label for="articleAuthor">Autor:</label>
+            <select id="articleAuthor" name="autor_id" required>
+                <option value="">-- Selecciona un autor --</option>
+                {% for autor in autores %}
+                    <option value="{{ autor._id }}" {% if autor._id == articulo.author_id %}selected{% endif %}>
+                        {{ autor.name }}
+                    </option>
+                {% endfor %}
+            </select>
+            
+            <label>Tags:</label>
+            <div class="checkbox-group" id="articleTags">
+                {% for tag in tags %}
+                    <input type="checkbox" id="tag_{{ tag._id }}" name="tags" value="{{ tag._id }}"
+                           {% if tag._id in articulo.tags %}checked{% endif %}>
+                    <label for="tag_{{ tag._id }}">{{ tag.name }}</label><br>
+                {% endfor %}
+            </div>
+            
+            <label>Categorías:</label>
+            <div class="checkbox-group" id="articleCategories">
+                {% for cat in categorias %}
+                    <input type="checkbox" id="cat_{{ cat._id }}" name="categorias" value="{{ cat._id }}"
+                           {% if cat._id in articulo.categories %}checked{% endif %}>
+                    <label for="cat_{{ cat._id }}">{{ cat.name }}</label><br>
+                {% endfor %}
+            </div>
+            
+            <button type="submit">Actualizar Artículo</button>
+        </form>
+    </div>
+{% endblock %}

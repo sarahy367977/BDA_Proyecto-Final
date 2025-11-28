@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1><span>🌸</span> Blog </h1>
+    </div>
+
+    <div class="container">
+        <div class="buttons-section">
+            <a class="button users" href="{{ url_for('pagina_usuarios') }}">Usuarios</a>
+            <a class="button articles" href="{{ url_for('pagina_articulos') }}">Artículos</a>
+            <a class="button tags" href="{{ url_for('pagina_tags') }}">Tags y Categorías</a>
+            <a class="button comments" href="{{ url_for('pagina_comentarios') }}">Comentarios</a>
+        </div>
+
+        <div class="content-area" id="content-area">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+</body>
+</html>
